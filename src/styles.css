@@ -1,0 +1,77 @@
+body {
+  font-family: "Courgette", cursive;
+}
+h1 {
+  text-align: center;
+  color: #fff;
+  font-size: 50px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  margin: 30px auto;
+  border-radius: 50%;
+  background-color: #2f495e;
+  opacity: 0.7;
+}
+button {
+  background-color: #466c8b;
+  padding: 10px 25px;
+  border-radius: 20px;
+  color: #fff;
+}
+.main-border {
+  margin: 50px auto;
+  background-image: url("images/background.jpg");
+  max-width: 600px;
+  border-radius: 10px;
+  padding: 30px;
+}
+.fa-temperature-full,
+.current-temp,
+.current-sky {
+  font-size: 30px;
+  color: #2f495e;
+  padding-left: 70px;
+}
+.current-temp {
+  padding-left: 0;
+}
+.units {
+  position: relative;
+  top: -10px;
+  font-size: 15px;
+}
+.celecius,
+.farenhite {
+  text-decoration: none;
+}
+.max-temp,
+.min-temp,
+.current-date,
+.degree-sign {
+  font-size: 20px;
+  color: #2f495e;
+  opacity: 0.8;
+}
+.fa-caret-up,
+.current-date {
+  padding-left: 70px;
+}
+.forecast {
+  font-size: 20px;
+}
+.forecast-icons {
+  font-size: 30px;
+}
+.forecast-min-max {
+  font-size: 15px;
+}
+.forecast-min-temp {
+  opacity: 0.7;
+}
+.author {
+  font-family: monospace;
+  opacity: 0.7;
+  font-size: 15px;
+  text-align: center;
+  margin-top: 20px;
+}
