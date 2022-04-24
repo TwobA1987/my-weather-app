@@ -1,19 +1,24 @@
+function fetchCityData(city) {
+  let apiKey = "a5e58eaf40fae13dec9122df08ce3fcf";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
+  axios.get(apiUrl).then(showTemperature);
+}
 function showTemperature(response) {
-  let city = response.data.name;
+  city = response.data.name;
   let h1 = document.querySelector("h1");
   h1.innerHTML = city;
-  let temp = Math.round(response.data.main.temp);
+  celeciusTemp = response.data.main.temp;
   let currentTemp = document.querySelector("#current-temp");
-  currentTemp.innerHTML = temp;
-  let tempMax = Math.round(response.data.main.temp_max);
-  let tempMin = Math.round(response.data.main.temp_min);
+  currentTemp.innerHTML = Math.round(celeciusTemp);
+  celeciusMaxTemp = response.data.main.temp_max;
+  celeciusMinTemp = response.data.main.temp_min;
   let currentSky = response.data.weather[0].main;
   let currentSkyElement = document.querySelector(".current-sky");
   currentSkyElement.innerHTML = currentSky;
   let maxTemp = document.querySelector(".max-temp");
   let minTemp = document.querySelector(".min-temp");
-  maxTemp.innerHTML = tempMax;
-  minTemp.innerHTML = tempMin;
+  maxTemp.innerHTML = Math.round(celeciusMaxTemp);
+  minTemp.innerHTML = Math.round(celeciusMinTemp);
 }
 function updateDateTime() {
   let now = new Date();
@@ -40,12 +45,9 @@ function updateDateTime() {
 }
 function findCity(event) {
   event.preventDefault();
-  updateDateTime();
   let searchBox = document.querySelector("#search-box");
-  let city = searchBox.value;
-  let apiKey = "a5e58eaf40fae13dec9122df08ce3fcf";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
-  axios.get(apiUrl).then(showTemperature);
+  city = searchBox.value;
+  fetchCityData(city);
 }
 function searchCity(position) {
   let lat = position.coords.latitude;
@@ -59,33 +61,30 @@ function showCurrentPlace(event) {
   navigator.geolocation.getCurrentPosition(searchCity);
 }
 function convertToCelecius(event) {
-  let currentTemp = document.querySelector("#current-temp");
-  let farTemp = currentTemp.innerHTML;
-  let celTemp = Math.round(((farTemp - 32) * 5) / 9);
-  currentTemp.innerHTML = celTemp;
-  let maxTemp = document.querySelector(".max-temp");
-  let farMaxTemp = maxTemp.innerHTML;
-  let celMaxTemp = Math.round(((farMaxTemp - 32) * 5) / 9);
-  maxTemp.innerHTML = celMaxTemp;
-  let minTemp = document.querySelector(".min-temp");
-  let farMinTemp = minTemp.innerHTML;
-  let celMinTemp = Math.round(((farMinTemp - 32) * 5) / 9);
-  minTemp.innerHTML = celMinTemp;
+  let currentTempElement = document.querySelector("#current-temp");
+  currentTempElement.innerHTML = Math.round(celeciusTemp);
+  let maxTempElement = document.querySelector(".max-temp");
+  maxTempElement.innerHTML = Math.round(celeciusMaxTemp);
+  let minTempElement = document.querySelector(".min-temp");
+  minTempElement.innerHTML = Math.round(celeciusMinTemp);
 }
 function convertToFarenhite(event) {
-  let currentTemp = document.querySelector("#current-temp");
-  let celTemp = currentTemp.innerHTML;
-  let farTemp = Math.round((celTemp * 9) / 5 + 32);
-  currentTemp.innerHTML = farTemp;
-  let maxTemp = document.querySelector(".max-temp");
-  let celMaxTemp = maxTemp.innerHTML;
-  let farMaxTemp = Math.round((celMaxTemp * 9) / 5 + 32);
-  maxTemp.innerHTML = farMaxTemp;
-  let minTemp = document.querySelector(".min-temp");
-  let celMinTemp = minTemp.innerHTML;
-  let farMinTemp = Math.round((celMinTemp * 9) / 5 + 32);
-  minTemp.innerHTML = farMinTemp;
+  let currentTempElement = document.querySelector("#current-temp");
+  let farTemp = Math.round((celeciusTemp * 9) / 5 + 32);
+  currentTempElement.innerHTML = farTemp;
+  let maxTempElement = document.querySelector(".max-temp");
+  let farMaxTemp = Math.round((celeciusMaxTemp * 9) / 5 + 32);
+  maxTempElement.innerHTML = farMaxTemp;
+  let minTempElement = document.querySelector(".min-temp");
+  let farMinTemp = Math.round((celeciusMinTemp * 9) / 5 + 32);
+  minTempElement.innerHTML = farMinTemp;
 }
+updateDateTime();
+let city = "tehran";
+fetchCityData(city);
+let celeciusTemp = null;
+let celeciusMaxTemp = null;
+let celeciusMinTemp = null;
 let searchForm = document.querySelector("#search-form");
 searchForm.addEventListener("submit", findCity);
 let currentCelTemp = document.querySelector(".celecius");
