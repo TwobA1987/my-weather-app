@@ -19,6 +19,12 @@ function showTemperature(response) {
   let minTemp = document.querySelector(".min-temp");
   maxTemp.innerHTML = Math.round(celeciusMaxTemp);
   minTemp.innerHTML = Math.round(celeciusMinTemp);
+  let iconElement = document.querySelector("#icon");
+  iconElement.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  );
+  iconElement.setAttribute("alt", response.data.weather[0].description);
 }
 function updateDateTime() {
   let now = new Date();
@@ -61,14 +67,18 @@ function showCurrentPlace(event) {
   navigator.geolocation.getCurrentPosition(searchCity);
 }
 function convertToCelecius(event) {
+  event.preventDefault();
   let currentTempElement = document.querySelector("#current-temp");
   currentTempElement.innerHTML = Math.round(celeciusTemp);
   let maxTempElement = document.querySelector(".max-temp");
   maxTempElement.innerHTML = Math.round(celeciusMaxTemp);
   let minTempElement = document.querySelector(".min-temp");
   minTempElement.innerHTML = Math.round(celeciusMinTemp);
+  currentCelTemp.classList.add("inactive");
+  currentFarTemp.classList.remove("inactive");
 }
 function convertToFarenhite(event) {
+  event.preventDefault();
   let currentTempElement = document.querySelector("#current-temp");
   let farTemp = Math.round((celeciusTemp * 9) / 5 + 32);
   currentTempElement.innerHTML = farTemp;
@@ -78,9 +88,11 @@ function convertToFarenhite(event) {
   let minTempElement = document.querySelector(".min-temp");
   let farMinTemp = Math.round((celeciusMinTemp * 9) / 5 + 32);
   minTempElement.innerHTML = farMinTemp;
+  currentCelTemp.classList.remove("inactive");
+  currentFarTemp.classList.add("inactive");
 }
 updateDateTime();
-let city = "tehran";
+let city = "London";
 fetchCityData(city);
 let celeciusTemp = null;
 let celeciusMaxTemp = null;

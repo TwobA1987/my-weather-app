@@ -26,15 +26,15 @@ button {
   border-radius: 10px;
   padding: 30px;
 }
-.fa-temperature-full,
 .current-temp,
 .current-sky {
   font-size: 30px;
   color: #2f495e;
-  padding-left: 70px;
 }
-.current-temp {
-  padding-left: 0;
+.current-sky {
+  position: relative;
+  top: 20px;
+  left: 70px;
 }
 .units {
   position: relative;
@@ -74,4 +74,12 @@ button {
   opacity: 0.7;
   font-size: 15px;
   text-align: center;
+}
+.inactive {
+  color: #2f495e;
+}
+.inactive:hover {
+  cursor: default;
+  text-decoration: none;
+  color: #2f495e;
 }
