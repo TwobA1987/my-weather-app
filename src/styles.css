@@ -9,7 +9,7 @@ h1 {
   padding-bottom: 15px;
   margin: 30px auto;
   border-radius: 50%;
-  background-color: #2f495e;
+  background-color: #608dba;
   opacity: 0.7;
 }
 button {
@@ -21,20 +21,21 @@ button {
 .main-border {
   margin: 0 auto;
   margin-top: 30px;
-  background-image: url("images/background.jpg");
+  background-image: linear-gradient(#defcf9, #cadefc, #c3bef0, #cca8e9);
   max-width: 600px;
   border-radius: 10px;
   padding: 30px;
 }
 .current-temp,
-.current-sky {
+.weather-condition {
   font-size: 30px;
   color: #2f495e;
 }
-.current-sky {
+.weather-condition {
   position: relative;
   top: 20px;
-  left: 70px;
+  left: 30px;
+  list-style: none;
 }
 .units {
   position: relative;
@@ -45,6 +46,7 @@ button {
 .farenhite {
   text-decoration: none;
 }
+.wind-speed,
 .max-temp,
 .min-temp,
 .current-date,

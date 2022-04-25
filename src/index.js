@@ -4,6 +4,7 @@ function fetchCityData(city) {
   axios.get(apiUrl).then(showTemperature);
 }
 function showTemperature(response) {
+  updateDateTime();
   city = response.data.name;
   let h1 = document.querySelector("h1");
   h1.innerHTML = city;
@@ -15,6 +16,8 @@ function showTemperature(response) {
   let currentSky = response.data.weather[0].main;
   let currentSkyElement = document.querySelector(".current-sky");
   currentSkyElement.innerHTML = currentSky;
+  let windSpeedElement = document.querySelector("#wind-speed");
+  windSpeedElement.innerHTML = Math.round(response.data.wind.speed);
   let maxTemp = document.querySelector(".max-temp");
   let minTemp = document.querySelector(".min-temp");
   maxTemp.innerHTML = Math.round(celeciusMaxTemp);
