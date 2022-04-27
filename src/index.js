@@ -94,9 +94,32 @@ function convertToFarenhite(event) {
   currentCelTemp.classList.remove("inactive");
   currentFarTemp.classList.add("inactive");
 }
+function forecastDisplay() {
+  let forecastHTML = "";
+  let days = ["fri", "sat", "sun", "mon", "tue", "wed"];
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `<div class="col-2">
+            <div class="forecast-day">${day}</div>
+            <img
+              src="http://openweathermap.org/img/wn/50d@2x.png"
+              alt=""
+              width="42"
+            />
+            <div class="forecast-temp">
+              <span class="forecast-temp-max">18°</span>
+              <span class="forecast-temp-min">4°</span>
+            </div>
+          </div>`;
+  });
+  let forecastElement = document.querySelector("#forecast");
+  forecastElement.innerHTML = forecastHTML;
+}
 updateDateTime();
 let city = "London";
 fetchCityData(city);
+forecastDisplay();
 let celeciusTemp = null;
 let celeciusMaxTemp = null;
 let celeciusMinTemp = null;
