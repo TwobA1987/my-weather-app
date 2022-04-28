@@ -28,17 +28,15 @@ function showTemperature(response) {
     `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
   iconElement.setAttribute("alt", response.data.weather[0].description);
+  FetchForecastData(response.data.coord);
+}
+function FetchForecastData(coords) {
+  let apiKey = "a5e58eaf40fae13dec9122df08ce3fcf";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coords.lat}&lon=${coords.lon}&exclude={daily}&units=metric&appid=${apiKey}`;
+  axios.get(apiUrl).then(ForecastDisplay);
 }
 function updateDateTime() {
   let now = new Date();
-  let weekDays = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-  ];
   let currentHour = now.getHours();
   if (currentHour < 10) {
     currentHour = `0${currentHour}`;
@@ -94,32 +92,53 @@ function convertToFarenhite(event) {
   currentCelTemp.classList.remove("inactive");
   currentFarTemp.classList.add("inactive");
 }
-function forecastDisplay() {
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let dayIndex = date.getDay();
+  return weekDays[dayIndex];
+}
+function ForecastDisplay(response) {
   let forecastHTML = "";
-  let days = ["fri", "sat", "sun", "mon", "tue", "wed"];
-  days.forEach(function (day) {
-    forecastHTML =
-      forecastHTML +
-      `<div class="col-2">
-            <div class="forecast-day">${day}</div>
+  let forcastDays = response.data.daily;
+  forcastDays.forEach(function (ForecastDay, index) {
+    if (index > 0 && index < 7) {
+      forecastHTML =
+        forecastHTML +
+        `<div class="col-2">
+            <div class="forecast-day">${formatDay(ForecastDay.dt)}</div>
             <img
-              src="http://openweathermap.org/img/wn/50d@2x.png"
+              src="http://openweathermap.org/img/wn/${
+                ForecastDay.weather[0].icon
+              }@2x.png"
               alt=""
               width="42"
             />
             <div class="forecast-temp">
-              <span class="forecast-temp-max">18°</span>
-              <span class="forecast-temp-min">4°</span>
+              <span class="forecast-temp-max">${Math.round(
+                ForecastDay.temp.max
+              )}°</span>
+              <span class="forecast-temp-min">${Math.round(
+                ForecastDay.temp.min
+              )}°</span>
             </div>
           </div>`;
+    }
   });
   let forecastElement = document.querySelector("#forecast");
   forecastElement.innerHTML = forecastHTML;
 }
-updateDateTime();
 let city = "London";
+let weekDays = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
+updateDateTime();
 fetchCityData(city);
-forecastDisplay();
 let celeciusTemp = null;
 let celeciusMaxTemp = null;
 let celeciusMinTemp = null;

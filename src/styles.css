@@ -59,11 +59,8 @@ button {
 .current-date {
   padding-left: 70px;
 }
-.forecast {
-  padding-left: 30px;
-}
 .forecast-day {
-  font-size: 20px;
+  font-size: 15px;
 }
 .forecast-temp {
   font-size: 15px;
