@@ -67,31 +67,6 @@ function showCurrentPlace(event) {
   event.preventDefault();
   navigator.geolocation.getCurrentPosition(searchCity);
 }
-function convertToCelecius(event) {
-  event.preventDefault();
-  let currentTempElement = document.querySelector("#current-temp");
-  currentTempElement.innerHTML = Math.round(celeciusTemp);
-  let maxTempElement = document.querySelector(".max-temp");
-  maxTempElement.innerHTML = Math.round(celeciusMaxTemp);
-  let minTempElement = document.querySelector(".min-temp");
-  minTempElement.innerHTML = Math.round(celeciusMinTemp);
-  currentCelTemp.classList.add("inactive");
-  currentFarTemp.classList.remove("inactive");
-}
-function convertToFarenhite(event) {
-  event.preventDefault();
-  let currentTempElement = document.querySelector("#current-temp");
-  let farTemp = Math.round((celeciusTemp * 9) / 5 + 32);
-  currentTempElement.innerHTML = farTemp;
-  let maxTempElement = document.querySelector(".max-temp");
-  let farMaxTemp = Math.round((celeciusMaxTemp * 9) / 5 + 32);
-  maxTempElement.innerHTML = farMaxTemp;
-  let minTempElement = document.querySelector(".min-temp");
-  let farMinTemp = Math.round((celeciusMinTemp * 9) / 5 + 32);
-  minTempElement.innerHTML = farMinTemp;
-  currentCelTemp.classList.remove("inactive");
-  currentFarTemp.classList.add("inactive");
-}
 function formatDay(timestamp) {
   let date = new Date(timestamp * 1000);
   let dayIndex = date.getDay();
@@ -144,9 +119,5 @@ let celeciusMaxTemp = null;
 let celeciusMinTemp = null;
 let searchForm = document.querySelector("#search-form");
 searchForm.addEventListener("submit", findCity);
-let currentCelTemp = document.querySelector(".celecius");
-let currentFarTemp = document.querySelector(".farenhite");
-currentCelTemp.addEventListener("click", convertToCelecius);
-currentFarTemp.addEventListener("click", convertToFarenhite);
 let currentButton = document.querySelector("#current-button");
 currentButton.addEventListener("click", showCurrentPlace);
